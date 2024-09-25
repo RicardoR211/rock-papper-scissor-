@@ -1,0 +1,32 @@
+body{
+    background-color: black;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+}
+.game{
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    text-align: center;
+    
+}
+
+h1{
+    margin: 0px;
+    margin-top: 15px;
+}
+
+
+.choices, .results{
+    padding: 0px;
+}
+
+.choices{
+    text-align: center;
+}
+
+.results{
+    text-align: left;
+}

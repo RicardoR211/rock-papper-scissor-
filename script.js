@@ -5,16 +5,20 @@ function getComputerChoice(){
     return _escolha[_random]
 }
 
-function getHumanChoice(){
-    _HumanChoice = prompt("Escolha um valor. Rock: 0, Papper: 1, Scissor: 2");
-    if(_HumanChoice > 2 || _HumanChoice < 0)  {
-        console.log("Invalid Number, change another")
-        _HumanChoice = prompt("Escolha um valor. Rock: 0, Papper: 1, Scissor: 2");
-        //console.clear();
+function checkWin(humanChoice, computerChoice){
+    if(humanChoice == computerChoice)
+    {
+        resultsP.textContent = "Draw"
     }
-    var _HumEscolha = ["Rock", "Papper", "Scissor"]
-
-    return _HumEscolha[_HumanChoice]
+    //loss
+    else if(computerChoice == "Rock" && humanChoice == "Scissor" || computerChoice == "Scissor" && humanChoice == "Papper" || computerChoice == "Papper" && humanChoice == "Rock") {
+        resultsP.textContent = "You lost, " + computerChoice + " wins from " + humanChoice
+        return computerScore++;
+    }
+    else{
+        resultsP.textContent = "You Win, " + humanChoice + " wins from " + computerChoice
+        return humanScore++;
+    }
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -22,35 +26,48 @@ function playRound(humanChoice, computerChoice) {
     //console.log("Your Choice: " + humanChoice)
     //console.log("Computer Choice: " + computerChoice)
 
-    if(humanChoice == computerChoice) console.log("Draw")
-    //loss
-    else if(computerChoice == "Rock" && humanChoice == "Scissor" || computerChoice == "Scissor" && humanChoice == "Papper" || computerChoice == "Papper" && humanChoice == "Rock") {
-        console.log("You lost " + computerChoice + " wins from " + humanChoice)
-        computerScore++;
+    checkWin(humanChoice, computerChoice);
+
+    resultTextPoints.textContent = "Player Score: " + humanScore + " Computer Score: " + computerScore;
+
+    if(humanScore == 5){
+        alert("YOU WIN :)");
+        location.reload();
     }
-    else{
-        console.log("You Win " + humanChoice + " wins from " + computerChoice)
-        humanScore++;
+    else if(computerScore == 5){
+        alert("You Lost ;(")
+        location.reload();
     }
 
-    console.log("Player Score: " + humanScore + " Computer Score: " + computerScore)
-    playGame();
+    //playGame();
 }
-  
+
 var humanScore = 0;
 var computerScore = 0;
 var round = 0;
 
-//const humanSelection = getHumanChoice();
-//const computerSelection = getComputerChoice();
+const rock = document.getElementById("Rock");
+rock.addEventListener('click', () =>{
+    playGame("Rock");
+})
+const papper = document.getElementById("Papper");
+papper.addEventListener('click', () =>{
+    playGame("Papper");
+})
+const scissor = document.getElementById("Scissor");
+scissor.addEventListener('click', () =>{
+    playGame("Scissor");
+})
 
-function playGame(){
-    if(round < 5) {
-        round++;
-        console.log("Round: " + round)
-        playRound(getHumanChoice(), getComputerChoice());
-    }
-    else console.log("Thanks For Play :)")
-}
+const resultsP = document.getElementById("resultsText")
+const resultTextPoints = document.getElementById("pointsGame")
+
+
+function playGame(humanChoice){
     
-playGame();
+    playRound(humanChoice, getComputerChoice());
+    
+}
+
+
+//playGame();
